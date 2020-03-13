@@ -1,0 +1,41 @@
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+<div id="root"></div>
+
+
+
+<script type="text/babel">
+
+    class Greet extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                text: "Hello world"
+            };
+            this.handleClick = this.handleClick.bind(this);
+
+        }
+
+         handleClick(){
+            // this.updateText();
+            alert(this.state.text);
+        }
+
+
+        componentDidMount(){
+            if (this.props.text) {
+                this.setState({text: this.props.text})
+            }
+        }
+
+        render(){
+            return(
+                <button onClick={this.handleClick}> Greet</button>
+            );
+        }
+    }
+
+
+    ReactDOM.render(<Greet text="Hi Friends" />, document.getElementById("root"));
+</script>

@@ -1,0 +1,51 @@
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+<div id="root"></div>
+
+
+
+<!-- Controlled Component -->
+<script type="text/babel">
+
+    // A compoenet to output list
+    class NameForm extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                name: "",
+                bio: ""
+            }
+
+            this.handleSubmit = this.handleSubmit.bind(this);
+            this.handleChange = this.handleChange.bind(this);
+        }
+
+
+        handleSubmit(e){
+            e.preventDefault();
+            alert(`One new User: ${this.state.name}`);
+            console.log(this.state);
+        }
+
+        handleChange(e){
+            this.setState({[e.target.name]: e.target.value.toLowerCase()});
+        }
+
+        render(){
+            return(
+                <form onSubmit={this.handleSubmit}>
+                    <label htmlFor="name">Name</label>
+                    <input type="text" onChange={this.handleChange} name="name" value={this.state.name} />
+                    <br/>
+                    <label htmlFor="bio">Bio</label>
+                    <textarea name="bio" onChange={this.handleChange} value={this.state.bio} cols="30" rows="10"></textarea>
+                    <br/>
+                    <input type="submit" name="send" />
+                </form>
+            );
+        }
+    }
+
+    ReactDOM.render(<NameForm /> , document.getElementById("root"));
+</script>

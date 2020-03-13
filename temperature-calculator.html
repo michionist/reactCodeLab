@@ -1,0 +1,69 @@
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+<div id="root"></div>
+
+
+<script type="text/babel">
+    class Form extends React.Component {
+        constructor(props) {
+            super(props);
+            this.handleChange = this.handleChange.bind(this);
+        }
+
+        handleChange(e){
+            console.log(e.target.value);
+            this.props.onTempChange(e.target.value);
+        }
+
+        render(){
+            return(
+            <div>
+                <input placeholder={this.props.temperature} onChange={this.handleChange} type="number" />
+                <input type="submit" value="Check" />
+            </div>
+            )
+        }
+
+    }
+
+
+    function BoilingVerdict(props) {
+        if (props.celsius >= 100) {
+            return <p>The water would boil.</p>;
+        }else{
+            return <p>The water would not boil.</p>;
+        }
+    }
+
+
+
+    class Calculator extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                temperature: 0
+            }
+            this.onTempChange = this.onTempChange.bind(this);
+        }
+
+
+
+
+        onTempChange(val){
+            this.setState({temperature: val});
+        }
+
+        render(){
+            const temperature = this.state.temperature;
+            return(
+                <div>
+                    <Form temperature={temperature} onTempChange={this.onTempChange} />
+                    <BoilingVerdict celsius={temperature} />
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<Calculator />, document.getElementById("root"));
+</script>

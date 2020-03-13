@@ -1,0 +1,57 @@
+<!--
+In React, you can create distinct
+components that encapsulate behavior you need.
+Then, you can render only some of them,
+depending on the state of your application.
+ -->
+
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+<div id="root"></div>
+
+<script type="text/babel">
+    // Hello
+    function UserGreeting(){
+        return <h2>Welcome back!</h2>;
+    }
+
+
+    function GuestGreeting() {
+        return <h2>Please Login</h2>;
+    }
+
+    class Greet extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {
+                isLoggedIn : false
+            }
+            this.handleClick = this.handleClick.bind(this);
+        }
+
+        handleClick(){
+            this.state.isLoggedIn ?  this.setState({isLoggedIn: false}) : this.setState({isLoggedIn: true})
+        }
+
+        buttonText(){
+            return this.state.isLoggedIn ?  "Logout" : "Login";
+        }
+
+        Greeting() {
+            return this.state.isLoggedIn ? <UserGreeting /> : <GuestGreeting />;
+        }
+
+        render() {
+            return(
+                <div>
+                    <button onClick={this.handleClick}>{this.buttonText()}</button>
+                    {this.Greeting()}
+                </div>
+            )
+        }
+    }
+
+
+    ReactDOM.render(<Greet />, document.getElementById("root"));
+</script>
